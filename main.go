@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
@@ -36,8 +35,7 @@ func (pet *PETUtil) Test() (res string, err error) {
 
 	defer file.Close()
 	awsSession, err := session.NewSession(&aws.Config{
-		Region:      aws.String(os.Getenv(constant.EnvKeyAwsRegion)),
-		Credentials: credentials.NewStaticCredentials(os.Getenv(constant.EnvKeyAwsAccessKeyId), os.Getenv(constant.EnvKeyAwsSecretAccessKey), os.Getenv(constant.EnvKeyAwsSessionToken)),
+		Region: aws.String(os.Getenv(constant.EnvKeyAwsRegion)),
 	})
 
 	if err != nil {
