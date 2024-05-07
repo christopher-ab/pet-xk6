@@ -28,7 +28,7 @@ func (pet *PETUtil) Test() (res string, err error) {
 	}
 	file, err := os.Create(fmt.Sprintf("/root/%s", constant.EnvKeyS3UserFileName))
 	if err != nil {
-		fmt.Println(err)
+		return
 	}
 	defer file.Close()
 	awsSession, err := session.NewSession(&aws.Config{
