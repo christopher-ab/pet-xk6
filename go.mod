@@ -5,6 +5,7 @@ go 1.21.1
 require go.k6.io/k6 v0.50.0
 
 require (
+	github.com/aws/aws-sdk-go v1.52.3 // indirect
 	github.com/cenkalti/backoff/v4 v4.2.1 // indirect
 	github.com/dlclark/regexp2 v1.9.0 // indirect
 	github.com/dop251/goja v0.0.0-20240220182346-e401ed450204 // indirect
@@ -15,6 +16,7 @@ require (
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/google/pprof v0.0.0-20240424215950-a892ee059fd6 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.16.0 // indirect
+	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
