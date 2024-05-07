@@ -26,10 +26,13 @@ func (pet *PETUtil) Test() (res string, err error) {
 		}
 		return
 	}
+	fmt.Println("masuk 1")
 	file, err := os.Create(fmt.Sprintf("/root/%s", constant.EnvKeyS3UserFileName))
 	if err != nil {
 		return
 	}
+	fmt.Println("masuk 2")
+
 	defer file.Close()
 	awsSession, err := session.NewSession(&aws.Config{
 		Region: aws.String(os.Getenv(constant.EnvKeyAwsRegion)),
@@ -37,6 +40,8 @@ func (pet *PETUtil) Test() (res string, err error) {
 	if err != nil {
 		return
 	}
+	fmt.Println("masuk 3")
+
 	downloader := s3manager.NewDownloader(awsSession)
 	_, err = downloader.Download(file,
 		&s3.GetObjectInput{
@@ -46,6 +51,7 @@ func (pet *PETUtil) Test() (res string, err error) {
 	if err != nil {
 		return
 	}
+	fmt.Println("masuk 4")
 
 	res = "OK"
 	return
