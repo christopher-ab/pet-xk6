@@ -26,9 +26,11 @@ func (pet *PETUtil) Test() (res string, err error) {
 		}
 		return
 	}
+	res = "masuk 1"
 	file, err := os.Create(fmt.Sprintf("/root/%s", constant.EnvKeyS3UserFileName))
+	res = "masuk 2"
+
 	if err != nil {
-		res = err.Error()
 		return
 	}
 
@@ -36,8 +38,9 @@ func (pet *PETUtil) Test() (res string, err error) {
 	awsSession, err := session.NewSession(&aws.Config{
 		Region: aws.String(os.Getenv(constant.EnvKeyAwsRegion)),
 	})
+	res = "masuk 3"
+
 	if err != nil {
-		res = err.Error()
 		return
 	}
 
@@ -47,8 +50,9 @@ func (pet *PETUtil) Test() (res string, err error) {
 			Bucket: aws.String(constant.EnvKeyS3Bucket),
 			Key:    aws.String(constant.EnvKeyS3UserFileName),
 		})
+	res = "masuk 4"
+
 	if err != nil {
-		res = err.Error()
 		return
 	}
 
