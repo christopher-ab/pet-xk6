@@ -27,9 +27,10 @@ func (pet *PETUtil) Test() (res string, err error) {
 			return
 		}
 	}
-	file, err := os.Create(fmt.Sprintf("/root/%s", constant.EnvKeyS3UserFileName))
+	file, err := os.Create(fmt.Sprintf("/root/%s", os.Getenv(constant.EnvKeyS3UserFileName)))
 
 	if err != nil {
+		err = errors.New(fmt.Sprintf("error create file: %s", err.Error()))
 		return
 	}
 
@@ -40,16 +41,18 @@ func (pet *PETUtil) Test() (res string, err error) {
 	})
 
 	if err != nil {
+		err = errors.New(fmt.Sprintf("error init session: %s", err.Error()))
 		return
 	}
 
 	downloader := s3manager.NewDownloader(awsSession)
 	_, err = downloader.Download(file,
 		&s3.GetObjectInput{
-			Bucket: aws.String(constant.EnvKeyS3Bucket),
-			Key:    aws.String(constant.EnvKeyS3UserFileName),
+			Bucket: aws.String(os.Getenv(constant.EnvKeyS3Bucket)),
+			Key:    aws.String(os.Getenv(constant.EnvKeyS3UserFileName)),
 		})
 	if err != nil {
+		err = errors.New(fmt.Sprintf("error download from s3: %s", err.Error()))
 		return
 	}
 
