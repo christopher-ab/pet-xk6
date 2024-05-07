@@ -73,12 +73,12 @@ func (pet *PETUtil) Test() (res string, err error) {
 		return
 	}
 
-	users := make([]model.UserLogin, len(data)-1)
+	var users []model.UserLogin
 	for idx, user := range data {
 		if idx == 0 {
 			continue
 		}
-		users[idx] = model.UserLogin{Email: user[0]}
+		users = append(users, model.UserLogin{Email: user[0]})
 	}
 	jsonUsers, err := json.MarshalIndent(users, "", "  ")
 
