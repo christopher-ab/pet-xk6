@@ -7,7 +7,7 @@ const (
 	EnvKeyAwsSessionToken    = "AWS_SESSION_TOKEN"
 
 	EnvKeyS3Bucket       = "S3_BUCKET"
-	EnvKeyS3UserFileName = "S3_USER_FILE_NAME"
+	EnvKeyS3UserFileName = "S3_LIST_USERS"
 )
 
 var EnvAwsConfig = map[string]string{
@@ -16,5 +16,5 @@ var EnvAwsConfig = map[string]string{
 	EnvKeyAwsSecretAccessKey: "AWS_SECRET_ACCESS_KEY",
 	EnvKeyAwsSessionToken:    "AWS_SESSION_TOKEN",
 	EnvKeyS3Bucket:           "S3_BUCKET",
-	EnvKeyS3UserFileName:     "S3_USER_FILE_NAME",
+	EnvKeyS3UserFileName:     "S3_LIST_USERS",
 }
