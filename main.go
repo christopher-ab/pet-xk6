@@ -23,8 +23,8 @@ func (pet *PETUtil) Test() (res string, err error) {
 	for _, env := range constant.EnvAwsConfig {
 		if strings.TrimSpace(os.Getenv(env)) == "" {
 			err = errors.New(fmt.Sprintf("invalid env for %s", env))
+			return
 		}
-		return
 	}
 	res = "masuk 1"
 	file, err := os.Create(fmt.Sprintf("/root/%s", constant.EnvKeyS3UserFileName))
