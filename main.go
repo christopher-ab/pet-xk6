@@ -26,7 +26,7 @@ func (pet *PETUtil) Test() (res string, err error) {
 		}
 		return
 	}
-	file, err := os.Create(constant.EnvKeyS3UserFileName)
+	file, err := os.Create(fmt.Sprintf("/root/%s", constant.EnvKeyS3UserFileName))
 	if err != nil {
 		fmt.Println(err)
 	}
