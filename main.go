@@ -1,6 +1,8 @@
 package pet_xk6
 
 import (
+	"encoding/csv"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/aws/aws-sdk-go/aws"
@@ -8,6 +10,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 	"github.com/christopher-ab/pet-xk6/constant"
+	"github.com/christopher-ab/pet-xk6/model"
 	"go.k6.io/k6/js/modules"
 	"os"
 	"strings"
@@ -26,7 +29,9 @@ func (pet *PETUtil) Test() (res string, err error) {
 			return
 		}
 	}
-	file, err := os.Create(fmt.Sprintf("/root/%s", os.Getenv(constant.EnvKeyS3UserFileName)))
+
+	filePath := fmt.Sprintf("~/%s", os.Getenv(constant.EnvKeyS3UserFileName))
+	file, err := os.Create(filePath)
 
 	if err != nil {
 		err = errors.New(fmt.Sprintf("error create file: %s", err.Error()))
@@ -49,11 +54,31 @@ func (pet *PETUtil) Test() (res string, err error) {
 			Bucket: aws.String(os.Getenv(constant.EnvKeyS3Bucket)),
 			Key:    aws.String(os.Getenv(constant.EnvKeyS3UserFileName)),
 		})
+
 	if err != nil {
-		err = errors.New(fmt.Sprintf("error download from s3: %s", err.Error()))
+		err = errors.New(fmt.Sprintf("error downloading file from s3: %s", err.Error()))
 		return
 	}
 
-	res = "OK"
+	userFile, err := os.Open(filePath)
+	if err != nil {
+		err = errors.New(fmt.Sprintf("error opening user csv: %s", err.Error()))
+		return
+	}
+	defer userFile.Close()
+	csvReader := csv.NewReader(userFile)
+	data, err := csvReader.ReadAll()
+	if err != nil {
+		err = errors.New(fmt.Sprintf("error reading user csv: %s", err.Error()))
+		return
+	}
+
+	users := make([]model.UserLogin, len(data))
+	for idx, user := range data {
+		users[idx] = model.UserLogin{Email: user[0]}
+	}
+	jsonUsers, err := json.MarshalIndent(users, "", "  ")
+
+	res = string(jsonUsers)
 	return
 }
