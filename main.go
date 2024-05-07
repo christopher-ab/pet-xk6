@@ -30,7 +30,7 @@ func (pet *PETUtil) Test() (res string, err error) {
 		}
 	}
 
-	filePath := fmt.Sprintf("~/%s", os.Getenv(constant.EnvKeyS3UserFileName))
+	filePath := fmt.Sprintf("/tmp/%s", os.Getenv(constant.EnvKeyS3UserFileName))
 	file, err := os.Create(filePath)
 
 	if err != nil {
